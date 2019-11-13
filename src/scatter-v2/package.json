@@ -1,0 +1,17 @@
+{
+  "name": "scatter-v2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/runtime": "^7.7.2",
+    "eosjs": "^20.0.0",
+    "eruda": "^1.10.3",
+    "scatterjs-core": "^2.7.18",
+    "scatterjs-plugin-eosjs2": "^1.5.0",
+    "vconsole": "^3.3.4"
+  },
+  "devDependencies": {
+    "less": "^3.10.3"
+  }
+}
