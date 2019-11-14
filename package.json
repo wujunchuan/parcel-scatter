@@ -1,7 +1,10 @@
 {
   "name": "parcel-scatter",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "workspaces": [
+    "src/scatter-v1",
+    "src/scatter-v2"
+  ]
 }

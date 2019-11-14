@@ -1,4 +1,4 @@
-# scatter-v2
+# scatter-v1
 
 ## Run from parcel
 
@@ -12,11 +12,15 @@ parcel index.html
 
 安装依赖
 
-`yarn add eosjs`
+`yarn add eosjs@16.0.9` 此处我们是将 EOSjs 版本单独安装(16.0.9), 避免与`scatter-v2`发生冲突
+
+至于如何同时安装不同版本的 Eosjs, 使用 Alias 来做区分, 可以采用 Yarn 的特性
+
+详细请看 https://yarnpkg.com/en/docs/cli/add#toc-yarn-add-alias
 
 `yarn add scatterjs-core`
 
-`yarn add scatterjs-plugin-eosjs2`
+`yarn add scatterjs-plugin-eosjs`
 
 ## Notes
 
@@ -26,6 +30,8 @@ parcel index.html
 
 - eosjs 发起事务的流程
 
-  ![image-20191113152715810](https://tva1.sinaimg.cn/large/006y8mN6gy1g8wgjg5ms4j31hs0owwls.jpg)
-
 - meetone 通过拦截 scatter 对象来实现
+
+- 使用 eosjs16 特性可以实现获取合约 ABI 之后, 调用合约方法, 这样做的好处是更加的简洁
+
+详细看讨论: https://github.com/EOSIO/eosjs/issues/452#issuecomment-553767294
