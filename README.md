@@ -11,3 +11,7 @@
 - v2 (eos20 + scatter-plugin-2)
 
   `cd ./src/scatter-v2 & parcel index.html`
+
+## About yarn workspace
+
+https://yarnpkg.com/zh-Hans/docs/workspaces

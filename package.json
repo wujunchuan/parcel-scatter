@@ -4,7 +4,6 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "src/scatter-v1",
-    "src/scatter-v2"
+    "src/*"
   ]
 }
