@@ -6,7 +6,7 @@
  * @Author: JohnTrump
  * @Date: 2019-11-22 00:27:17
  * @Last Modified by: JohnTrump
- * @Last Modified time: 2019-11-23 01:31:11
+ * @Last Modified time: 2019-11-25 13:26:45
  */
 import { Api, Serialize, JsonRpc } from "eosjs";
 import _network from "../../config/network";
@@ -44,7 +44,8 @@ api.getContract("eosio.token").then(contract => {
 
 // const serializeString = `e289d75d4e03abb2f318000000000100a6823403ea3055000000572d3ccdcd0220799e9a2264305500000000a8ed32323044a852df3c1b7d00000000a8ed3232363044a852df3c1b7d00000000000e1660010000000000000004454f5300000000156d6565742d6465762d746f6f6c7320776f726b732100`;
 // const serializeString = `3b90d75dca0f5b57dd69000000000100a6823403ea3055000000572d3ccdcd0220799e9a2264305500000000a8ed32323044a852df3c1b7d00000000a8ed3232363044a852df3c1b7d00000000000e1660010000000000000004454f5300000000156d6565742d6465762d746f6f6c7320776f726b732100`;
-const serializeString = `ac16d85dfa16a6686940000000000100a6823403ea3055000000572d3ccdcd02104208bed35b315500000000a8ed32324046a852df3c1b7d0000000080ab26a72f4046a852df3c1b7d002450919aa32b222c0100000000000004454f53000000000e31302e303030302c302e3033303000`;
+const serializeString =
+  "6e64db5d9c9a3ffd3db6000000000100a6823403ea3055000000572d3ccdcd02104208bed35b315500000000a8ed32323044a852df3c1b7d00000000a8ed3232363044a852df3c1b7d00000000000e1660010000000000000004454f5300000000156d6565742d6465762d746f6f6c7320776f726b732100";
 
 const serializeHex = Buffer.from(serializeString, "hex");
 console.log("serializeString", serializeString);
@@ -57,3 +58,39 @@ const serializeHex_1 = api.serializeTransaction(deserializeTransaction);
 console.log(serializeHex_1);
 
 serializeHex_1.toString();
+
+// 翻转Hex
+function reverseHex(h) {
+  return h.substr(6, 2) + h.substr(4, 2) + h.substr(2, 2) + h.substr(0, 2);
+}
+
+let block_id =
+  "0576a059950f892883d4281a0fdd51ce092a1d418587bbee48b5da2bbf252340";
+function refBlockPrefix() {
+  console.log("block_id.substr(16, 8):", block_id.substr(16, 8)); // a6686940
+  console.log(
+    "reverseHex block_id.substr(16, 8):",
+    reverseHex(block_id.substr(16, 8))
+  ); // 406968a6
+  let ref_block_prefix = parseInt(reverseHex(block_id.substr(16, 8)), 16);
+  console.log(ref_block_prefix);
+}
+
+// refBlockPrefix();
+
+function refBlockNum() {
+  let block_num = block_id.substr(0, 8);
+  block_num_hex = parseInt(block_num, 16);
+  console.log("block_num_hex:", block_num_hex);
+  console.log("block_num_hex & 0xffff:", block_num_hex & 0xffff); // 取低32bits
+}
+
+// refBlockNum();
+
+function test() {
+  console.log({
+    ref_block_num: parseInt(block_id.substr(0, 8), 16) & 0xffff,
+    ref_block_prefix: parseInt(reverseHex(block_id.substr(16, 8)), 16)
+  });
+}
+test();
