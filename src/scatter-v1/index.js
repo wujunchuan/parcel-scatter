@@ -91,11 +91,54 @@ setTimeout(() => {
     });
   }
 
+  function cosign() {
+    return new Promise(async (resolve, reject) => {
+      // MOCK了一份数据
+      transfer.actions[0].data.from = _account.name || "johntrump123";
+      transfer.actions[0].authorization = [
+        {
+          actor: "g.f.w",
+          permission: "active"
+        },
+        {
+          actor: "johntrump123",
+          permission: "active"
+        }
+      ];
+
+      try {
+        let resp = await _eos.transaction(
+          {
+            actions: transfer.actions
+          },
+          {
+            blocksBehind: 3,
+            expireSeconds: 60
+          }
+        );
+        resolve(resp);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   document.getElementById("login").addEventListener("click", getIdentity);
   document.getElementById("logout").addEventListener("click", forgetIdentity);
   document.getElementById("transfer").addEventListener("click", async () => {
     try {
       let res = await transaction();
+      alert(JSON.stringify(res));
+    } catch (error) {
+      console.log(typeof error);
+      console.log(JSON.stringify(error));
+      let { message } = error;
+      alert(message);
+    }
+  });
+  document.getElementById("cosign").addEventListener("click", async () => {
+    try {
+      let res = await cosign();
       alert(JSON.stringify(res));
     } catch (error) {
       console.log(typeof error);
