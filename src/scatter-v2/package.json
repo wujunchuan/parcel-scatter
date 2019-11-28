@@ -10,6 +10,9 @@
     "scatterjs-core": "^2.7.18",
     "scatterjs-plugin-eosjs2": "^1.5.0"
   },
+  "browserslist": [
+        "last 1 Chrome versions"
+    ],
   "devDependencies": {
     "less": "^3.10.3"
   }
