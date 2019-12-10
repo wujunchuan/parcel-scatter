@@ -6,7 +6,7 @@
  * @Author: JohnTrump
  * @Date: 2019-11-22 00:27:17
  * @Last Modified by: JohnTrump
- * @Last Modified time: 2019-11-25 13:26:45
+ * @Last Modified time: 2019-12-05 19:54:07
  */
 import { Api, Serialize, JsonRpc } from "eosjs";
 import _network from "../../config/network";
@@ -27,8 +27,8 @@ const api = new Api({
   textEncoder: new TextEncoder()
 });
 
-(async () => { 
-  let data = await rpc.get_block(92045580) //get the first block
+(async () => {
+  let data = await rpc.get_block(92045580); //get the first block
   console.log(data);
 })();
 
@@ -50,7 +50,7 @@ api.getContract("eosio.token").then(contract => {
 // const serializeString = `e289d75d4e03abb2f318000000000100a6823403ea3055000000572d3ccdcd0220799e9a2264305500000000a8ed32323044a852df3c1b7d00000000a8ed3232363044a852df3c1b7d00000000000e1660010000000000000004454f5300000000156d6565742d6465762d746f6f6c7320776f726b732100`;
 // const serializeString = `3b90d75dca0f5b57dd69000000000100a6823403ea3055000000572d3ccdcd0220799e9a2264305500000000a8ed32323044a852df3c1b7d00000000a8ed3232363044a852df3c1b7d00000000000e1660010000000000000004454f5300000000156d6565742d6465762d746f6f6c7320776f726b732100`;
 const serializeString =
-  "36e6dd5d228f02485904000000000180f3d414619730fd0000000000e94c44013044a852df3c1b7d0000000080ab26a7103044a852df3c1b7d045a4f530000000000";
+  "2eefe85d2941db8db326000000000100a6823403ea3055000000572d3ccdcd023044a852df3c1b7d00000000a8ed323210382d545794a7ba00000000a8ed3232363044a852df3c1b7d00000000000e1660010000000000000004454f5300000000156d6565742d6465762d746f6f6c7320776f726b732100";
 
 const serializeHex = Buffer.from(serializeString, "hex");
 console.log("serializeString", serializeString);

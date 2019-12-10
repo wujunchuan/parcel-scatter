@@ -1,4 +1,4 @@
-import "../../../../source/meet-inject/dist/meetone-webview-inject.iife";
+// import "../../../../source/meet-inject/dist/meetone-webview-inject.iife";
 
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs"; // For using eosjs@beta and up
