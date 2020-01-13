@@ -90,6 +90,33 @@ setTimeout(() => {
       }
     });
   }
+  /**
+   * Transaction
+   */
+  function transaction2() {
+    return new Promise(async (resolve, reject) => {
+      transfer.actions[0].authorization[0].actor =
+        _account.name || "johntrump123";
+      transfer.actions[0].data.from = _account.name || "johntrump123";
+      transfer.actions[0].authorization[0].permission =
+        _account.authority || "active";
+
+      try {
+        let resp = await _eos.transaction(
+          {
+            actions: [transfer.actions[0], transfer.actions[0]]
+          },
+          {
+            blocksBehind: 3,
+            expireSeconds: 60
+          }
+        );
+        resolve(resp);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 
   function cosign() {
     return new Promise(async (resolve, reject) => {
@@ -136,6 +163,8 @@ setTimeout(() => {
       alert(message);
     }
   });
+
+  /* 测试Dapps原本就拥有的联合签名情况 */
   document.getElementById("cosign").addEventListener("click", async () => {
     try {
       let res = await cosign();
@@ -146,5 +175,34 @@ setTimeout(() => {
       let { message } = error;
       alert(message);
     }
+  });
+
+  /* 测试Transaction中包含多个Actions的cosign情况 [没问题] */
+  document.getElementById("transfer2").addEventListener("click", async () => {
+    try {
+      let res = await transaction2();
+      alert(JSON.stringify(res));
+    } catch (error) {
+      console.log(typeof error);
+      console.log(JSON.stringify(error));
+      let { message } = error;
+      alert(message);
+    }
+  });
+
+  /* 测试eosjs16特有的 `eos.contract(c => c.transaction(tr => { ... }))` 的情况 */
+  document.getElementById("transfer3").addEventListener("click", async () => {
+    let contract = await _eos.contract("eosio.token");
+    let { from, to, quantity, memo } = {
+      from: _account.name || "johntrump123",
+      to: "g.f.w",
+      quantity: "0.0001 EOS",
+      memo: "meet-dev-tools works!"
+    };
+    /* 这种写法不支持 */
+    contract.transaction(tr => {
+      tr.transfer(from, to, quantity, memo);
+      tr.transfer(from, to, quantity, memo);
+    });
   });
 }, 1000);
