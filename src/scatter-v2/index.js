@@ -127,8 +127,47 @@ setTimeout(() => {
     });
   }
 
+  function feb20test() {
+    _eos
+      .transact(
+        {
+          actions: [
+            {
+              account: "mkstaketoken",
+              name: "transfer",
+              authorization: [
+                {
+                  actor: _account.name || "johntrump123",
+                  permission: _account.authority || "active"
+                }
+              ],
+              data: {
+                from: _account.name || "johntrump123",
+                to: "keypriceupup",
+                quantity: `${1.0} KEY`,
+                memo: ""
+              }
+            }
+          ]
+        },
+        {
+          blocksBehind: 3,
+          expireSeconds: 30,
+          broadcast: false
+        }
+      )
+      .then(res => {
+        alert("存入成功");
+        alert(JSON.stringify(res));
+        // this.refreshValue();
+      })
+      .catch(err => {
+        alert("存入失败" + "\n" + err.message);
+      });
+  }
   document.getElementById("login").addEventListener("click", getIdentity);
   document.getElementById("logout").addEventListener("click", forgetIdentity);
+  document.getElementById("feb20test").addEventListener("click", feb20test);
   document.getElementById("transfer").addEventListener("click", async () => {
     try {
       let res = await transaction();
