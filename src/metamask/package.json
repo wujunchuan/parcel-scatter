@@ -1,0 +1,15 @@
+{
+  "name": "metamask",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "browserslist": [
+    "last 1 Chrome versions"
+  ],
+  "dependencies": {
+    "chai": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.11"
+  }
+}

@@ -1,0 +1,37 @@
+<!--
+ * @Author: John Trump
+ * @Date: 2020-06-02 16:24:50
+ * @LastEditors: John Trump
+ * @LastEditTime: 2020-06-02 18:50:29
+ * @FilePath: /src/metamask/index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.less">
+  <title>Metamask兼容性测试</title>
+</head>
+<body>
+
+  <section class="basic">
+    <a href="https://docs.metamask.io/guide/ethereum-provider.html#ethereum-enable">
+      <h2>ethereum.enable()</h2>
+    </a>
+    <button class="btn primaryBtn" id="enableEthereumButton">Enable Ethereum</button>
+    <h4>Account: <span class="showAccount"></span></h4>
+  </section>
+
+  <section class="basic">
+    <a href="https://docs.metamask.io/guide/ethereum-provider.html#ethereum-sendasync-payload-callback">
+      <h2>ethereum.sendAsync(payload, callback)</h2>
+    </a>
+    <!-- ethereum.sendAsync(payload, callback) -->
+    <button class="btn primaryBtn" id="sendAsyncButton">sendAsync</button>
+    <!-- ethereum.send(payload, callback) (To Be Replaced) -->
+    <button class="btn primaryBtn" id="sendButton">send</button>
+  </section>
+  <script src="./index.js"></script>
+</body>
+</html>
