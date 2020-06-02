@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "dev:v1": "cd ./src/scatter-v1 && parcel index.html",
-    "dev:v2": "cd ./src/scatter-v2 && parcel index.html"
+    "dev:v2": "cd ./src/scatter-v2 && parcel index.html",
+    "dev:metamask": "cd ./src/metamask && parcel index.html"
   },
   "private": true,
   "workspaces": [
