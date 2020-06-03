@@ -2,12 +2,15 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:18
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-03 10:41:47
- * @FilePath: /src/metamask/metamask.js
+ * @LastEditTime: 2020-06-03 19:23:26
+ * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask.js
  */
 
 import { assert } from "chai";
-import './index';
+const ethUtil = require("ethereumjs-util");
+const sigUtil = require("eth-sig-util");
+import "./index";
+
 if (typeof window.ethereum !== "undefined") {
   console.log("MetaMask is installed!");
   assert(ethereum.isMetaMask, "ethereum.isMetaMask 应该为 true");
@@ -121,4 +124,117 @@ async function send() {
       }
     }
   );
+}
+
+/**
+ * 签名
+ */
+
+document.getElementById("ethSignButton").addEventListener("click", () => {
+  event.preventDefault();
+  var msg =
+    "0x879a053d4800c6354e76c7985a865d2922c82fb5b3f4577b2fe08b998954f2e0";
+  var from = web3.eth.accounts[0];
+  if (!from) return getAccount();
+  web3.eth.sign(from, msg, function(err, result) {
+    if (err) return console.error(err);
+    console.log("SIGNED:" + result);
+    assert(
+      result ===
+        "0xaa85078d9420b2ac275a71121f17e8cded803fca89af0725460f4bfa525eaa536a89c5f60e44635d2579442dbd56a960dc94717acb4c0c73f6a980de5ba4a2e01c",
+      "签名错误, 0x49a8246758f8d28e348318183d9498496074ca71为签名者"
+    );
+  });
+});
+
+/**
+ * 调用路径:
+ * personal_sign -> personal_ecRecover
+ */
+const personalSignEle = document.getElementById("personalSign");
+personalSignEle.addEventListener("click", () => {
+  event.preventDefault();
+  let text = "你好, 世界, 我是JohnTrump";
+  personal_sign(text)
+    .then((res) => {
+      console.log("personal_sign:", res.result);
+      return personal_ecRecover(text, res.result);
+    })
+    .then((res) => {
+      console.log("personal_ecRecover:", res.result);
+      assert(res.result === web3.eth.accounts[0], "公钥不一致!");
+    });
+});
+
+/**
+ * 调用路径:
+ * personal_sign -> manual personal_ecRecover(use sigUtil)
+ */
+const personalEcRecoverEl = document.getElementById("personalEcRecover");
+personalEcRecoverEl.addEventListener("click", () => {
+  event.preventDefault();
+  let text = "你好, 世界, 我是JohnTrump";
+  personal_sign(text).then((res) => {
+    console.log("personal_sign:", res.result);
+    const recovered = sigUtil.recoverPersonalSignature({
+      sig: res.result,
+      data: ethUtil.bufferToHex(new Buffer(text, "utf8")),
+    });
+    assert(recovered === web3.eth.accounts[0], "验证失败, 公钥不一致");
+  });
+});
+
+/**
+ * 签名
+ *
+ * `method: personal_sign`
+ *
+ * @param text 明文
+ */
+async function personal_sign(text) {
+  let from = web3.eth.accounts[0];
+  let msg = ethUtil.bufferToHex(new Buffer(text, "utf8"));
+  if (!from) return getAccount();
+  return new Promise((resolve, reject) => {
+    const method = "personal_sign";
+    const params = [msg, from];
+    web3.currentProvider.sendAsync(
+      {
+        method,
+        params,
+        from,
+      },
+      function(err, result) {
+        if (err) reject(err);
+        else resolve(result);
+      }
+    );
+  });
+}
+
+/**
+ * 解签名
+ *
+ * `method: personal_ecRecover`
+ *
+ * @param text 明文
+ * @param sign 密文
+ */
+async function personal_ecRecover(text, sign) {
+  return new Promise((resolve, reject) => {
+    const method = "personal_ecRecover";
+    const params = [text, sign];
+    const from = web3.eth.accounts[0];
+    web3.currentProvider.sendAsync(
+      {
+        method,
+        params,
+        from,
+      },
+      function(err, result) {
+        if (err) reject(err);
+        else resolve(result);
+      }
+    );
+  });
 }

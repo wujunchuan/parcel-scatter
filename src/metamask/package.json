@@ -7,9 +7,13 @@
     "last 1 Chrome versions"
   ],
   "dependencies": {
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "eth-sig-util": "^2.5.3",
+    "ethereumjs-util": "^7.0.2",
+    "meet-bridge": "file:.yalc/meet-bridge"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.11"
+    "@types/chai": "^4.2.11",
+    "typescript": "^3.9.3"
   }
 }

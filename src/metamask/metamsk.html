@@ -2,8 +2,8 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:32:56
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-03 10:33:20
- * @FilePath: /src/metamask/metamsk.html
+ * @LastEditTime: 2020-06-03 17:18:23
+ * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamsk.html
 -->
 
 <!DOCTYPE html>
@@ -32,6 +32,16 @@
     <button class="btn primaryBtn" id="sendAsyncButton">sendAsync</button>
     <!-- ethereum.send(payload, callback) (To Be Replaced) -->
     <button class="btn primaryBtn" id="sendButton">send</button>
+  </section>
+
+  <section class="basic">
+    <h2>签名</h2>
+    <!-- ethereum.sendAsync(payload, callback) -->
+    <button class="btn primaryBtn" id="ethSignButton">Eth_Sign</button>
+    <div>
+      <button class="btn primaryBtn" id="personalSign">personal_sign</button>
+      <button class="btn primaryBtn" id="personalEcRecover">personal_ecRecover</button>
+    </div>
   </section>
   <script src="./metamask.js"></script>
 </body>
