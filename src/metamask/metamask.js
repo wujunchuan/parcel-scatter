@@ -2,9 +2,11 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:18
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-04 17:08:19
+ * @LastEditTime: 2020-06-04 19:04:19
  * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask.js
  */
+// NOTICE: 调试MEETONE时候加下面这段
+import "../../../../source/meet-inject/dist/meetone-webview-inject.iife";
 
 import { assert } from "chai";
 const ethUtil = require("ethereumjs-util");
@@ -19,7 +21,7 @@ setTimeout(() => {
     console.log("MetaMask is installed!");
     assert(ethereum.isMetaMask, "ethereum.isMetaMask 应该为 true");
     assert(
-      ethereum.networkVersion === "1", // TP的这边当初数字来处理了, 我们还是以metamask的源码为准
+      ethereum.networkVersion == 1,
       "ethereum.networkVersion 应该为1(正式网络)"
     );
   } else {
@@ -30,7 +32,8 @@ setTimeout(() => {
 const enableEthereumButtonEle = document.getElementById("enableEthereumButton");
 enableEthereumButtonEle.addEventListener("click", () => {
   const { networkVersion, isMetaMask } = window.ethereum;
-  console.dir({ networkVersion, isMetaMask });
+  assert(networkVersion === 1, 'networkVersion should be 1');
+  assert(isMetaMask, 'isMetaMask should be true');
   getAccount();
 });
 
@@ -99,6 +102,7 @@ async function sendAsync() {
       to: "0x089aD6f597C6edC32FF928CC8df90874121dfe39",
       gas: "0x76c0", // 30400
       gasPrice: "0x9184e72a000", // 10000000000000
+      // value: "0x9184e72a", // 2441406250
       value: "0x9184e72a", // 2441406250
       data:
         "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675",
@@ -113,7 +117,7 @@ async function sendAsync() {
     },
     (err, response) => {
       if (err) {
-        console.log(err)
+        console.log(err);
       } else {
         const result = response.result;
         console.log("result", result);
