@@ -2,7 +2,7 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:18
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-04 15:04:50
+ * @LastEditTime: 2020-06-04 17:08:19
  * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask.js
  */
 
@@ -41,6 +41,7 @@ enableEthereumButtonEle.addEventListener("click", () => {
  */
 async function getAccount() {
   const accounts = await ethereum.enable();
+  console.log(accounts); // ['0x49a8246758f8d28e348318183d9498496074ca71]
   assert(Array.isArray(accounts), "应该返回数组[]");
   const account = accounts[0];
   assert(typeof account === "string", "应该返回数组[]");
@@ -48,6 +49,34 @@ async function getAccount() {
   const showAccount = document.querySelector(".showAccount");
   showAccount.innerHTML = account;
 }
+
+/**
+ * 登录
+ *
+ * `ethereum.sendAsync({ method: "eth_requestAccounts", params: [false] }, callback)`
+ */
+function getAccountBySendAsync() {
+  ethereum.sendAsync(
+    { method: "eth_requestAccounts", params: [true] },
+    (error, response) => {
+      console.log(error); // null
+      console.log(response); //{id, jsonrpc, result}
+      const accounts = response.result;
+      assert(Array.isArray(accounts), "应该返回数组[]");
+      const account = accounts[0];
+      assert(typeof account === "string", "应该返回数组[]");
+      assert(account.length === 42, "ETH公钥长度为42");
+      const showAccount = document.querySelector(".showAccount");
+      showAccount.innerHTML = account;
+    }
+  );
+}
+
+document
+  .getElementById("enableEthereumButton2")
+  .addEventListener("click", () => {
+    getAccountBySendAsync();
+  });
 
 const sendAsyncButtonEle = document.getElementById("sendAsyncButton");
 sendAsyncButtonEle.addEventListener("click", () => {
@@ -84,6 +113,7 @@ async function sendAsync() {
     },
     (err, response) => {
       if (err) {
+        console.log(err)
       } else {
         const result = response.result;
         console.log("result", result);

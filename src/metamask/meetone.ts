@@ -2,7 +2,7 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:22
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-03 19:25:30
+ * @LastEditTime: 2020-06-04 15:32:10
  * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/meetone.ts
  */
 
@@ -48,7 +48,6 @@ async function getAccount() {
       dappName: 'Dapp的名字'
     },
   });
-  console.log(response);
 
   assert(response.code === 0, "协议状态失败");
   assert(typeof response.data.publicKey === "string", "没获取到公钥");
