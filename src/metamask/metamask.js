@@ -2,28 +2,35 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:18
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-03 19:23:26
+ * @LastEditTime: 2020-06-04 15:04:50
  * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask.js
  */
 
 import { assert } from "chai";
 const ethUtil = require("ethereumjs-util");
 const sigUtil = require("eth-sig-util");
+var Eth = require("ethjs");
+window.Eth = Eth;
 import "./index";
 
-if (typeof window.ethereum !== "undefined") {
-  console.log("MetaMask is installed!");
-  assert(ethereum.isMetaMask, "ethereum.isMetaMask 应该为 true");
-  assert(
-    ethereum.networkVersion === "1",
-    "ethereum.networkVersion 应该为1(正式网络)"
-  );
-} else {
-  throw new Error("MetaMask is not installed");
-}
+/** TP的注入逻辑有一定的延迟, 所以我们在外层加上了一点延迟 */
+setTimeout(() => {
+  if (typeof window.ethereum !== "undefined") {
+    console.log("MetaMask is installed!");
+    assert(ethereum.isMetaMask, "ethereum.isMetaMask 应该为 true");
+    assert(
+      ethereum.networkVersion === "1", // TP的这边当初数字来处理了, 我们还是以metamask的源码为准
+      "ethereum.networkVersion 应该为1(正式网络)"
+    );
+  } else {
+    throw new Error("MetaMask is not installed");
+  }
+}, 2000);
 
 const enableEthereumButtonEle = document.getElementById("enableEthereumButton");
 enableEthereumButtonEle.addEventListener("click", () => {
+  const { networkVersion, isMetaMask } = window.ethereum;
+  console.dir({ networkVersion, isMetaMask });
   getAccount();
 });
 
@@ -130,7 +137,12 @@ async function send() {
  * 签名
  */
 
-document.getElementById("ethSignButton").addEventListener("click", () => {
+/**
+ * 调用方法:
+ * `web3.eth.sign`
+ */
+const ethSignEle = document.getElementById("ethSignButton");
+ethSignEle.addEventListener("click", () => {
   event.preventDefault();
   var msg =
     "0x879a053d4800c6354e76c7985a865d2922c82fb5b3f4577b2fe08b998954f2e0";
@@ -238,3 +250,24 @@ async function personal_ecRecover(text, sign) {
     );
   });
 }
+
+const ethjsPersonalSignEle = document.getElementById("ethjsPersonalSign");
+ethjsPersonalSignEle.addEventListener("click", () => {
+  event.preventDefault();
+  let text = "你好, 世界, 我是JohnTrump";
+  let msg = ethUtil.bufferToHex(new Buffer(text, "utf8"));
+  const from = web3.eth.accounts[0];
+  if (!from) return getAccount();
+  // Now with Eth.js
+  let eth = new Eth(web3.currentProvider);
+  eth
+    .personal_sign(msg, from)
+    .then((signed) => {
+      console.log("Signed!  Result is: ", signed);
+      return eth.personal_ecRecover(msg, signed);
+    })
+    .then((recovered) => {
+      console.log({ recovered });
+      assert(recovered === from, "ethjs签名验证失败");
+    });
+});

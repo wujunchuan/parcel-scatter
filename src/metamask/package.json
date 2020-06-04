@@ -10,6 +10,7 @@
     "chai": "^4.2.0",
     "eth-sig-util": "^2.5.3",
     "ethereumjs-util": "^7.0.2",
+    "ethjs": "^0.4.0",
     "meet-bridge": "file:.yalc/meet-bridge"
   },
   "devDependencies": {
