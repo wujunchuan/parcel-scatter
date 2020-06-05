@@ -11,7 +11,8 @@
     "eth-sig-util": "^2.5.3",
     "ethereumjs-util": "^7.0.2",
     "ethjs": "^0.4.0",
-    "meet-bridge": "file:.yalc/meet-bridge"
+    "meet-bridge": "file:.yalc/meet-bridge",
+    "tp-js-sdk": "^3.3.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",

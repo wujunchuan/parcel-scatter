@@ -2,12 +2,14 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:22
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-04 15:32:10
+ * @LastEditTime: 2020-06-05 15:47:23
  * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/meetone.ts
  */
 
 import { assert } from "chai";
 import MeetBridge from "meet-bridge";
+const tp = require('tp-js-sdk')
+
 import "./index";
 
 const bridge = new MeetBridge();
@@ -60,6 +62,24 @@ async function getAccount() {
 const signTransactionEle = document.getElementById("signTransaction");
 signTransactionEle.addEventListener("click", () => {
   signTransaction();
+});
+
+/*
+  tp的签名交易事务测试
+ */
+const signTransactionEle_2 = document.getElementById("signTransaction_2");
+signTransactionEle_2.addEventListener("click", () => {
+  // @ts-ignore
+  tp.signEthTransaction({
+    from:"0x49a8246758f8d28e348318183d9498496074ca71",
+    to: '0x089aD6f597C6edC32FF928CC8df90874121dfe39',
+    gasPrice: 100000000,
+    gasLimit: 60000,
+    data: '0xaawefwefwefwefwefef',
+    value: 100000000 * 60000
+  }).then(res => {
+    console.log(res);
+  })
 });
 
 async function signTransaction() {

@@ -2,11 +2,11 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:18
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-05 18:09:28
- * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask.js
+ * @LastEditTime: 2020-06-05 19:46:22
+ * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask_.js
  */
 // NOTICE: 调试MEETONE时候加下面这段
-import "../../../../source/meet-inject/dist/meetone-webview-inject.iife";
+// import "../../../../source/meet-inject/dist/meetone-webview-inject.iife";
 
 import { assert } from "chai";
 const ethUtil = require("ethereumjs-util");
