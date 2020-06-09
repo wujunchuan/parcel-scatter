@@ -2,7 +2,7 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:18
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-05 18:09:28
+ * @LastEditTime: 2020-06-09 14:59:59
  * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask.js
  */
 // NOTICE: 调试MEETONE时候加下面这段
@@ -188,7 +188,7 @@ ethSignEle.addEventListener("click", () => {
     assert(
       result ===
         "0xaa85078d9420b2ac275a71121f17e8cded803fca89af0725460f4bfa525eaa536a89c5f60e44635d2579442dbd56a960dc94717acb4c0c73f6a980de5ba4a2e01c",
-      "签名错误, 0x49a8246758f8d28e348318183d9498496074ca71为签名者"
+      "签名错误, 0x49a8246758f8d28e348318183d9498496074ca71 为签名者"
     );
   });
 });
@@ -222,10 +222,12 @@ personalEcRecoverEl.addEventListener("click", () => {
   let text = "你好, 世界, 我是JohnTrump";
   personal_sign(text).then((res) => {
     console.log("personal_sign:", res.result);
+    console.log('-----ethUtil.recoverPersonalSignature-----');
     const recovered = sigUtil.recoverPersonalSignature({
       sig: res.result,
       data: ethUtil.bufferToHex(new Buffer(text, "utf8")),
     });
+    console.log('recovered:', recovered);
     assert(recovered === web3.eth.accounts[0], "验证失败, 公钥不一致");
   });
 });
@@ -242,6 +244,7 @@ async function personal_sign(text) {
   let msg = ethUtil.bufferToHex(new Buffer(text, "utf8"));
   if (!from) return getAccount();
   return new Promise((resolve, reject) => {
+    console.log('sendAsync(personal_sign)');
     const method = "personal_sign";
     const params = [msg, from];
     web3.currentProvider.sendAsync(
@@ -268,6 +271,7 @@ async function personal_sign(text) {
  */
 async function personal_ecRecover(text, sign) {
   return new Promise((resolve, reject) => {
+    console.log('sendAsync(personal_ecRecover)');
     const method = "personal_ecRecover";
     const params = [text, sign];
     const from = web3.eth.accounts[0];
@@ -297,8 +301,9 @@ ethjsPersonalSignEle.addEventListener("click", () => {
   eth
     .personal_sign(msg, from)
     .then((signed) => {
-      console.log("Signed!  Result is: ", signed);
-      return eth.personal_ecRecover(msg, signed);
+      console.log("eth.personal_sign result: ", signed);
+      // return eth.personal_ecRecover(msg, signed);
+      return eth.personal_ecRecover(text, signed);
     })
     .then((recovered) => {
       console.log({ recovered });

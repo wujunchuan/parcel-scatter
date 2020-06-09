@@ -2,7 +2,7 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:18
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-05 19:46:22
+ * @LastEditTime: 2020-06-09 14:52:48
  * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask_.js
  */
 // NOTICE: 调试MEETONE时候加下面这段
@@ -32,8 +32,8 @@ setTimeout(() => {
 const enableEthereumButtonEle = document.getElementById("enableEthereumButton");
 enableEthereumButtonEle.addEventListener("click", () => {
   const { networkVersion, isMetaMask } = window.ethereum;
-  assert(networkVersion == 1, 'networkVersion should be 1');
-  assert(isMetaMask, 'isMetaMask should be true');
+  assert(networkVersion == 1, "networkVersion should be 1");
+  assert(isMetaMask, "isMetaMask should be true");
   getAccount();
 });
 
@@ -191,6 +191,26 @@ ethSignEle.addEventListener("click", () => {
       "签名错误, 0x49a8246758f8d28e348318183d9498496074ca71为签名者"
     );
   });
+
+  return;
+  const message = "你好, 世界, 我是JohnTrump";
+  const hash = web3.sha3(message);
+  web3.eth.sign(web3.eth.accounts[0], hash, function(err, signature) {
+    if (err) return console.error(err);
+    console.log("SIGNED:" + signature);
+    debugger;
+    // recover
+    // Then on the server, using ethereumjs-util:
+    const sig = ethUtil.fromRpcSig(signature);
+    const publicKey = ethUtil.ecrecover(
+      new Buffer(hash.substring(2)),
+      sig.v,
+      sig.r,
+      sig.s
+    );
+    const address = ethUtil.pubToAddress(publicKey).toString("hex");
+    console.log(address);
+  });
 });
 
 /**
@@ -222,10 +242,12 @@ personalEcRecoverEl.addEventListener("click", () => {
   let text = "你好, 世界, 我是JohnTrump";
   personal_sign(text).then((res) => {
     console.log("personal_sign:", res.result);
+    console.log('-----ethUtil.recoverPersonalSignature-----');
     const recovered = sigUtil.recoverPersonalSignature({
       sig: res.result,
       data: ethUtil.bufferToHex(new Buffer(text, "utf8")),
     });
+    console.log('recovered:', recovered);
     assert(recovered === web3.eth.accounts[0], "验证失败, 公钥不一致");
   });
 });
