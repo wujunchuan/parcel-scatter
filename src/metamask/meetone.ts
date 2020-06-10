@@ -2,7 +2,7 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:22
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-05 15:47:23
+ * @LastEditTime: 2020-06-10 11:56:09
  * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/meetone.ts
  */
 
@@ -91,7 +91,9 @@ async function signTransaction() {
      *
      * eg: `0xf8ef8201598504a817c800830298109490cb7b42a9cb3accbe665e7d6cdde4ab346eca1483030d40b88402ef9b6b0000000000000000`
      */
-    data: string;
+    data: {
+      sig: string
+    };
   }
 
   const response: IResponse = await bridge.customGenerate({
@@ -101,17 +103,17 @@ async function signTransaction() {
       /** to: String */
       to: "0x089aD6f597C6edC32FF928CC8df90874121dfe39",
       /** gasPrice: String|Number */
-      gasPrice: 100000000,
+      gasPrice: 30000000000,
       /** gasLimit: String|Number */
-      gasLimit: 60000,
+      gasLimit: 40000,
       /** data: String */
-      data: "我只是来测试transaction_sign的Data!",
+      data: "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675",
       /** value: String | Number */
-      value: 1000000000,
+      value: 30000000000000,
     },
   });
   assert(response.code === 0, "协议状态失败");
-  assert(typeof response.data === "string", "当前应为事务ID");
+  assert(typeof response.data.sig === "string", "当前应为签名后的Hash");
 }
 
 /*
@@ -127,7 +129,9 @@ async function sendTransaction() {
     /** 状态码, 0为成功  */
     code: number;
     /** 事务ID */
-    data: string;
+    data: {
+      txid: string
+    };
   }
 
   const response: IResponse = await bridge.customGenerate({
@@ -137,15 +141,15 @@ async function sendTransaction() {
       /** to: String */
       to: "0x089aD6f597C6edC32FF928CC8df90874121dfe39",
       /** gasPrice: String|Number */
-      gasPrice: 100000000,
+      gasPrice: 30000000000,
       /** gasLimit: String|Number */
-      gasLimit: 60000,
+      gasLimit: 40000,
       /** data: String */
-      data: "我只是来测试transaction_send的Data!",
+      data: "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675",
       /** value: String | Number */
-      value: 1000000000,
+      value: 30000000000000,
     },
   });
   assert(response.code === 0, "协议状态失败");
-  assert(typeof response.data === "string", "当前应为事务ID");
+  assert(typeof response.data.txid === "string", "当前应为事务ID");
 }

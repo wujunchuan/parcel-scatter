@@ -2,7 +2,7 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:18
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-09 14:59:59
+ * @LastEditTime: 2020-06-10 11:51:51
  * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask.js
  */
 // NOTICE: 调试MEETONE时候加下面这段
@@ -32,8 +32,8 @@ setTimeout(() => {
 const enableEthereumButtonEle = document.getElementById("enableEthereumButton");
 enableEthereumButtonEle.addEventListener("click", () => {
   const { networkVersion, isMetaMask } = window.ethereum;
-  assert(networkVersion == 1, 'networkVersion should be 1');
-  assert(isMetaMask, 'isMetaMask should be true');
+  assert(networkVersion == 1, "networkVersion should be 1");
+  assert(isMetaMask, "isMetaMask should be true");
   getAccount();
 });
 
@@ -100,10 +100,9 @@ async function sendAsync() {
     {
       from: ethereum.selectedAddress,
       to: "0x089aD6f597C6edC32FF928CC8df90874121dfe39",
-      gas: "0x76c0", // 30400
-      gasPrice: "0x9184e72a000", // 10000000000000
-      // value: "0x9184e72a", // 2441406250
-      value: "0x9184e72a", // 2441406250
+      gasPrice: "0x6fc23ac00",
+      gas: "0x9c40",
+      value: "0x1b48eb57e000",
       data:
         "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675",
     },
@@ -144,9 +143,9 @@ async function send() {
     {
       from: ethereum.selectedAddress,
       to: "0x089aD6f597C6edC32FF928CC8df90874121dfe39",
-      gas: "0x76c0", // 30400
-      gasPrice: "0x9184e72a000", // 10000000000000
-      value: "0x9184e72a", // 2441406250
+      gasPrice: "0x6fc23ac00",
+      gas: "0x9c40",
+      value: "0x1b48eb57e000",
       data:
         "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675",
     },
@@ -222,12 +221,12 @@ personalEcRecoverEl.addEventListener("click", () => {
   let text = "你好, 世界, 我是JohnTrump";
   personal_sign(text).then((res) => {
     console.log("personal_sign:", res.result);
-    console.log('-----ethUtil.recoverPersonalSignature-----');
+    console.log("-----ethUtil.recoverPersonalSignature-----");
     const recovered = sigUtil.recoverPersonalSignature({
       sig: res.result,
       data: ethUtil.bufferToHex(new Buffer(text, "utf8")),
     });
-    console.log('recovered:', recovered);
+    console.log("recovered:", recovered);
     assert(recovered === web3.eth.accounts[0], "验证失败, 公钥不一致");
   });
 });
@@ -244,7 +243,7 @@ async function personal_sign(text) {
   let msg = ethUtil.bufferToHex(new Buffer(text, "utf8"));
   if (!from) return getAccount();
   return new Promise((resolve, reject) => {
-    console.log('sendAsync(personal_sign)');
+    console.log("sendAsync(personal_sign)");
     const method = "personal_sign";
     const params = [msg, from];
     web3.currentProvider.sendAsync(
@@ -271,7 +270,7 @@ async function personal_sign(text) {
  */
 async function personal_ecRecover(text, sign) {
   return new Promise((resolve, reject) => {
-    console.log('sendAsync(personal_ecRecover)');
+    console.log("sendAsync(personal_ecRecover)");
     const method = "personal_ecRecover";
     const params = [text, sign];
     const from = web3.eth.accounts[0];
