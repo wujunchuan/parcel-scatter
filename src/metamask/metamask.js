@@ -2,11 +2,12 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:18
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-10 11:51:51
+ * @LastEditTime: 2020-06-15 10:01:08
  * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask.js
  */
 // NOTICE: 调试MEETONE时候加下面这段
-import "../../../../source/meet-inject/dist/meetone-webview-inject.iife";
+/* 注释掉下面代码, 因为现在客户端(Android, iOS未知)支持在调试的时候动态读取远程文件, 所以不需要这句了 */
+// import "../../../../source/meet-inject/dist/meetone-webview-inject.iife";
 
 import { assert } from "chai";
 const ethUtil = require("ethereumjs-util");
