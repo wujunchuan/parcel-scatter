@@ -2,8 +2,16 @@
   "name": "parcel-scatter",
   "version": "1.0.0",
   "license": "MIT",
+  "scripts": {
+    "dev:v1": "parcel ./src/scatter-v1/index.html",
+    "dev:v2": "parcel ./src/scatter-v2/index.html",
+    "dev:metamask": "parcel ./src/metamask/index.html"
+  },
   "private": true,
   "workspaces": [
     "src/*"
-  ]
+  ],
+  "dependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
 }

@@ -1,0 +1,44 @@
+<!--
+ * @Author: John Trump
+ * @Date: 2020-06-03 10:33:01
+ * @LastEditors: John Trump
+ * @LastEditTime: 2020-06-05 15:51:40
+ * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/meetone.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.less">
+  <title>MEETONE客户端兼容性测试</title>
+</head>
+<body>
+  <section class="tips">
+    <ul>
+      <li>本页面用于测试MEETONE客户端协议 -- ETH部分</li>
+      <li>采用断言库 chai.js, 对于不符合预期的协议及时抛出错误</li>
+    </ul>
+  </section>
+
+  <section class="test">
+    <h3>获取账号信息</h3>
+    <button class="btn primaryBtn" id="getAccount">eth/account_info</button>
+  </section>
+
+  <section class="test">
+    <h3>签名事务(Sign Transaction)</h3>
+    <button class="btn primaryBtn" id="signTransaction">eth/transaction_sign</button>
+    <button class="btn primaryBtn" id="signTransaction_2">(tp客户端用)eth/transaction_sign</button>
+  </section>
+
+  <section class="test">
+    <h3>发送事务(Send Transaction)</h3>
+    <button class="btn primaryBtn" id="sendTransaction">eth/transaction_send</button>
+    <button class="btn primaryBtn" id="sendTransaction_2">(tp客户端用)eth/transaction_send</button>
+  </section>
+
+  <script src="./meetone.ts"></script>
+</body>
+</html>

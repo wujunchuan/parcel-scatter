@@ -1,0 +1,21 @@
+{
+  "name": "metamask",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "browserslist": [
+    "last 1 Chrome versions"
+  ],
+  "dependencies": {
+    "chai": "^4.2.0",
+    "eth-sig-util": "^2.5.3",
+    "ethereumjs-util": "^7.0.2",
+    "ethjs": "^0.4.0",
+    "meet-bridge": "file:.yalc/meet-bridge",
+    "tp-js-sdk": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "typescript": "^3.9.3"
+  }
+}

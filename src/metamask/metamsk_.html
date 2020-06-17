@@ -1,0 +1,50 @@
+<!--
+ * @Author: John Trump
+ * @Date: 2020-06-03 10:32:56
+ * @LastEditors: John Trump
+ * @LastEditTime: 2020-06-05 19:47:11
+ * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamsk_.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.less">
+  <title>Metamask兼容性测试</title>
+</head>
+<body>
+
+  <section class="basic">
+    <a href="https://docs.metamask.io/guide/ethereum-provider.html#ethereum-enable">
+      <h2>ethereum.enable()</h2>
+    </a>
+    <button class="btn primaryBtn" id="enableEthereumButton">Enable Ethereum</button>
+    <button class="btn primaryBtn" id="enableEthereumButton2">Login by sendAsync</button>
+    <h4>Account: <span class="showAccount"></span></h4>
+  </section>
+
+  <section class="basic">
+    <a href="https://docs.metamask.io/guide/ethereum-provider.html#ethereum-sendasync-payload-callback">
+      <h2>ethereum.sendAsync(payload, callback)</h2>
+    </a>
+    <!-- ethereum.sendAsync(payload, callback) -->
+    <button class="btn primaryBtn" id="sendAsyncButton">sendAsync</button>
+    <!-- ethereum.send(payload, callback) (To Be Replaced) -->
+    <button class="btn primaryBtn" id="sendButton">send</button>
+  </section>
+
+  <section class="basic">
+    <h2>签名</h2>
+    <!-- ethereum.sendAsync(payload, callback) -->
+    <button class="btn primaryBtn" id="ethSignButton">Eth_Sign</button>
+    <div>
+      <button class="btn primaryBtn" id="personalSign">personal_sign</button>
+      <button class="btn primaryBtn" id="personalEcRecover">personal_ecRecover</button>
+      <button class="btn primaryBtn" id="ethjsPersonalSign">ethjs_personal_sign</button>
+    </div>
+  </section>
+  <script src="./metamask_.js"></script>
+</body>
+</html>
