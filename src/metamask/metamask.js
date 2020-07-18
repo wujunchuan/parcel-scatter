@@ -2,8 +2,8 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:18
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-15 10:01:08
- * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask.js
+ * @LastEditTime: 2020-07-18 16:02:36
+ * @FilePath: /src/metamask/metamask.js
  */
 // NOTICE: 调试MEETONE时候加下面这段
 /* 注释掉下面代码, 因为现在客户端(Android, iOS未知)支持在调试的时候动态读取远程文件, 所以不需要这句了 */
@@ -310,3 +310,43 @@ ethjsPersonalSignEle.addEventListener("click", () => {
       assert(recovered === from, "ethjs签名验证失败");
     });
 });
+
+const getBalanceEle = document.getElementById("getBalance");
+getBalanceEle.addEventListener("click", () => {
+  /* 使用协议获取Balance (only ETH, use `eth_getBalance`) */
+  // getBalance();
+  /* 使用合约获取Token Balance(use `eth_call`) */
+  // 流程: ABI -> get contract -> execute contract(balanceOf)
+  getErc20Balance();
+});
+const erc20 = require('./erc20.json');
+/** 通过调用合约方法来查询Token余额 */
+async function getErc20Balance() {
+  const from = web3.eth.accounts[0];
+  // let tokenAddress = "0x2A65D41dbC6E8925bD9253abfAdaFab98eA53E34";
+  let tokenAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
+  // let walletAddress = "0x821e28109872cad442da8d8335be37d317d4f1e7";
+  let walletAddress = from;
+  // const contract = new web3.eth.contract(erc20, tokenAddress);
+  let contract = web3.eth.contract(erc20).at(tokenAddress);
+  contract.balanceOf(walletAddress, (error, balance) => {
+    console.log(balance);
+    document.getElementById("getBalanceResult").innerHTML = balance;
+    // Get decimals
+    contract.decimals((error, decimals) => {
+      // calculate a balance
+      balance = balance.div(10**decimals);
+      document.getElementById("getBalanceResult").innerHTML = balance;
+      console.log(balance.toString());
+    });
+  });
+}
+
+/** 通过调用eth_getBalance来查询余额 */
+async function getBalance() {
+  const from = web3.eth.accounts[0];
+  web3.eth.getBalance(from, (err, balance) => {
+    let result = web3.fromWei(balance, "ether") + " ETH"
+    document.getElementById("getBalanceResult").innerHTML = result;
+  })
+}
