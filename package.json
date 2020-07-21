@@ -5,7 +5,8 @@
   "scripts": {
     "dev:v1": "parcel ./src/scatter-v1/index.html",
     "dev:v2": "parcel ./src/scatter-v2/index.html",
-    "dev:metamask": "parcel ./src/metamask/index.html"
+    "dev:metamask": "parcel ./src/metamask/index.html",
+    "dev:react-demo": "parcel ./src/react-demo/index.html"
   },
   "private": true,
   "workspaces": [
