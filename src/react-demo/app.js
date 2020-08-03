@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Index from "./index.jsx";
+import Index from "./index_2.jsx";
 
 class App extends React.Component {
   constructor(props) {
@@ -9,7 +9,6 @@ class App extends React.Component {
   render() {
     return (
       <div className="application">
-        <h1>Hello React.</h1>
         <Index />
       </div>
     );
