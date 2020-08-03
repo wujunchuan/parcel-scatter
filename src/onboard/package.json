@@ -1,0 +1,16 @@
+{
+  "name": "onboard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "browserslist": [
+    "last 1 Chrome versions"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bnc-onboard": "file:.yalc/bnc-onboard",
+    "web3": "^1.2.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.0"
+  }
+}
