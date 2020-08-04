@@ -2091,7 +2091,7 @@
     deepmerge "^4.2.2"
     loglevel "^1.6.8"
 
-"@toruslabs/torus-embed@^1.8.1":
+"@toruslabs/torus-embed@^1.3.0":
   version "1.8.2"
   resolved "https://registry.npmjs.org/@toruslabs/torus-embed/-/torus-embed-1.8.2.tgz#6652b8f751c5f041749ccbfcaa0c08ced5f4f278"
   integrity sha512-SlApK4BavoQYNenoQxjUs9/rrqrGDK5+Z9coABA6J7pLcbSL7QnBl8bKwTTYhI9Hri2GRbUM8XzNNpZfy5RiIQ==
@@ -3213,15 +3213,13 @@ bn.js@^5.1.1, bn.js@^5.1.2:
   resolved "https://registry.npm.taobao.org/bn.js/download/bn.js-5.1.2.tgz#c9686902d3c9a27729f43ab10f9d79c2004da7b0"
   integrity sha1-yWhpAtPJoncp9DqxD515wgBNp7A=
 
-bnc-onboard@^1.10.4:
-  version "1.10.4"
-  resolved "https://registry.npmjs.org/bnc-onboard/-/bnc-onboard-1.10.4.tgz#eb05e3a7f58e9011dd16a1ce5f48f235f8a4a581"
-  integrity sha512-twEX5vFFyFpma8qdjELUr2vmHo1RCoLP18fH9c6chZsfXVSKcuUy8pvvJ5KNbdjDkYp3h5FTNDOaYyrua/1rIw==
+"bnc-onboard@file:src/onboard/.yalc/bnc-onboard":
+  version "1.10.3-c761c907"
   dependencies:
     "@ledgerhq/hw-app-eth" "^5.19.0"
     "@ledgerhq/hw-transport-u2f" "^5.19.0"
     "@portis/web3" "^2.0.0-beta.55"
-    "@toruslabs/torus-embed" "^1.8.1"
+    "@toruslabs/torus-embed" "^1.3.0"
     "@unilogin/provider" "^0.5.21"
     "@walletconnect/web3-provider" "^1.0.13"
     authereum "^0.0.4-beta.157"

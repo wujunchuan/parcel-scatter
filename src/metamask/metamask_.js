@@ -2,8 +2,8 @@
  * @Author: John Trump
  * @Date: 2020-06-03 10:34:18
  * @LastEditors: John Trump
- * @LastEditTime: 2020-06-10 11:41:48
- * @FilePath: /Users/wujunchuan/Project/source/parcel-scatter/src/metamask/metamask_.js
+ * @LastEditTime: 2020-08-04 13:03:47
+ * @FilePath: /Users/wujunchuan/Project/personal-source/parcel-scatter/src/metamask/metamask_.js
  */
 // NOTICE: 调试MEETONE时候加下面这段
 // import "../../../../source/meet-inject/dist/meetone-webview-inject.iife";
@@ -12,6 +12,7 @@ import { assert } from "chai";
 const ethUtil = require("ethereumjs-util");
 const sigUtil = require("eth-sig-util");
 var Eth = require("ethjs");
+const Web3 = require('web3');
 window.Eth = Eth;
 import "./index";
 
@@ -326,3 +327,30 @@ ethjsPersonalSignEle.addEventListener("click", () => {
       assert(recovered === from, "ethjs签名验证失败");
     });
 });
+
+function subscribe() {
+  const web3 = new Web3(window.web3.currentProvider);
+  var subscription = web3.eth
+    .subscribe("newBlockHeaders", function(error, result) {
+      if (!error) {
+        console.log('callback', result);
+        debugger;
+        return;
+      }
+
+      console.error(error);
+    })
+    .on("connected", function(subscriptionId) {
+      console.log('connected', subscriptionId);
+      debugger;
+    })
+    .on("data", function(blockHeader) {
+      console.log("data", blockHeader);
+      debugger;
+    })
+    .on("error", console.error);
+}
+
+document.getElementById('eth_subscribe').addEventListener('click', () => {
+  subscribe();
+})
