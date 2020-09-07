@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- H5页面窗口自动调整到设备宽度，并禁止用户缩放页面 -->
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+  <title>Tron</title>
+</head>
+
+<body>
+  <div>
+    <span>测试一下TronLink注入的tronweb对象</span>
+
+    <div>
+      <button id="gettronweb">获取地址</button>
+      <span id="gettronweb-result">获取地址</span>
+    </div>
+
+    <div>
+      <span>测试一下TronLink注入的tronweb对象</span>
+      <button id="transfer">转账</button>
+    </div>
+
+    <div>
+      <span>调用合约</span>
+      <button id="trigger-contract">triggerSmartContract</button>
+    </div>
+
+    <div>
+      <span>任意签名(字符串, 一般用来鉴权)</span>
+      <button id="trigger-arbitrary">arbitrary</button>
+    </div>
+
+  </div>
+  <hr>
+
+
+  <script src="./index.js"></script>
+</body>
+
+</html>

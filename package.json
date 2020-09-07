@@ -7,7 +7,8 @@
     "dev:v2": "parcel ./src/scatter-v2/index.html",
     "dev:metamask": "parcel ./src/metamask/index.html",
     "dev:onboard": "parcel ./src/onboard/index.html",
-    "dev:react-demo": "parcel ./src/react-demo/index.html"
+    "dev:react-demo": "parcel ./src/react-demo/index.html",
+    "dev:tron-demo": "parcel ./src/tron/index.html"
   },
   "private": true,
   "workspaces": [
